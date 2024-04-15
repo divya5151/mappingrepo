@@ -1,8 +1,12 @@
 package com.hibernatemapping.map1.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+
+import java.util.List;
+
 @Entity
 @Data
 
@@ -12,8 +16,20 @@ public class Question {
     private int id;
 
     private String Question;
-    @OneToOne(mappedBy = "q")
-    private  Answer a;
+   /* @OneToOne(mappedBy = "q",cascade = CascadeType.REMOVE)
+    private  Answer a;*/
+    @OneToMany(mappedBy = "q",cascade = CascadeType.REMOVE)
+    @JsonBackReference
+
+    private List<Answer> a;
+
+    public List<Answer> getA() {
+        return a;
+    }
+
+    public void setA(List<Answer> a) {
+        this.a = a;
+    }
 
     public int getId() {
         return id;
@@ -31,11 +47,11 @@ public class Question {
         Question = question;
     }
 
-    public Answer getA() {
+  /*  public Answer getA() {
         return a;
     }
 
     public void setA(Answer a) {
         this.a = a;
-    }
+    }*/
 }

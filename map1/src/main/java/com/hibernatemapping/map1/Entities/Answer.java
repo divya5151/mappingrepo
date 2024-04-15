@@ -1,7 +1,12 @@
 package com.hibernatemapping.map1.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+
 @Entity
 @Data
 
@@ -11,7 +16,12 @@ public class Answer {
     private int id;
 
     private String Answer;
-    @OneToOne/*(mappedBy = "a")*/
+
+
+
+   /* @OneToOne*//*(mappedBy = "a")*/
+    @ManyToOne()
+    @JsonManagedReference
     private Question q;
 
     public int getId() {
@@ -22,7 +32,7 @@ public class Answer {
         this.id = id;
     }
 
-    public String getAnswer() {
+   public String getAnswer() {
         return Answer;
     }
 
